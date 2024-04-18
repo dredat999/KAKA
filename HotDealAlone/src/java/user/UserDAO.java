@@ -140,29 +140,30 @@ private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND
 
 
     
-//   public static void main(String[] args) {
-//    String username = "meomeo";
-//    String password = "123456";
-//
-//    try {
-//        // Attempt to log in the user
-//        UserDTO user = loginUser(username, password);
-//        
-//        // Check if login was successful
-//        if (user != null) {
-//            // Print user information
-//            System.out.println("Login successful!");
-//            System.out.println("User ID: " + user.getId());
-//            System.out.println("Username: " + user.getUsername());
-//            System.out.println("Password: " + user.getPassword());
-//            System.out.println("First Name: " + user.getFirst_name());
-//            System.out.println("Last Name: " + user.getLast_name());
-//            System.out.println("Last Login: " + user.getLast_loginDate());
-//            // Print login failure message
-//            
-//        }
-//    } catch (ClassNotFoundException | SQLException e) {
-//        // Print any exceptions that occur during the login process
-//        e.printStackTrace();
-//    }
+   public static void main(String[] args) {
+    String username = "meomeo";
+    String password = "123456";
+
+    try {
+        // Attempt to log in the user
+        UserDTO user = loginUser(username, password);
+        
+        // Check if login was successful
+        if (user != null) {
+            // Print user information
+            System.out.println("Login successful!");
+            System.out.println("User ID: " + user.getId());
+            System.out.println("Username: " + user.getUsername());
+            System.out.println("Password: " + user.getPassword());
+            System.out.println("First Name: " + user.getFirst_name());
+            System.out.println("Last Name: " + user.getLast_name());
+            System.out.println("Last Login: " + user.getLast_loginDate());
+            // Print login failure message
+            
+        }
+    } catch (ClassNotFoundException | SQLException e) {
+        // Print any exceptions that occur during the login process
+        e.printStackTrace();
+    }
+   }
 }

@@ -1,6 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<%-- 
+    Document   : customer
+    Created on : Apr 17, 2024, 10:06:22 AM
+    Author     : HP
+--%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
     <head>
         <meta charset="utf-8">
         <title>Hot Deals</title>
@@ -28,95 +34,18 @@
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-
     <body>
-
         <!-- Spinner Start -->
         <div id="spinner" class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50  d-flex align-items-center justify-content-center">
             <div class="spinner-grow text-primary" role="status"></div>
         </div>
         <!-- Spinner End -->
 
-        <!-- Login Modal -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="loginForm"> <!-- Added an id to the login form -->
-                        <!-- Login Form -->
-                        <form action="DispatchServlet" method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary" name="action" value="Login">Login</button>
-                            </div>
-                        </form>
-                        <!-- End Login Form -->
-                    </div>
-                    <div class="modal-body" id="signupForm" style="display: none;"> <!-- Added an id to the sign-up form and set display: none -->
-                        <!-- Sign Up Form -->
-                        <form id="signupForm">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="firstname" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="lastname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="telephone" class="form-label">Telephone</label>
-                                <input type="text" class="form-control" id="telephone" name="telephone" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Sign Up</button>
-                            </div>
-                        </form>
-                        <!-- End Sign Up Form -->
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="me-auto" onclick="toggleForms()">Sign Up</a> <!-- Added onclick event to call JavaScript function -->
-                        <a href="#">Forgot Password</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <script>
-            function toggleForms() {
-            var loginForm = document.getElementById('loginForm');
-            var signupForm = document.getElementById('signupForm');
+        <!-- Profile Model -->
 
-            if (loginForm.style.display === 'block') {
-                loginForm.style.display = 'none';
-                signupForm.style.display = 'block';
-            } else {
-                loginForm.style.display = 'block';
-                signupForm.style.display = 'none';
-            }
-        }
-        </script>
+
+
+
 
 
         <!-- Navbar start -->
@@ -162,9 +91,17 @@
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                <p>Login/Sign Up</p>
-                            </a>
+                            <div class="dropdown">
+                                <a class="my-auto dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user fa-2x"></i>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="#">Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href=""  onclick="logout()">Logout</a></li>
+                                </ul>
+                            </div>
 
                         </div>
                     </div>
@@ -172,6 +109,21 @@
             </div>
         </div>
         <!-- Navbar End -->
+        <script>
+            function logout() {
+                fetch('DispatchServlet?action=logout', {
+                    method: 'POST' // Specify the method as POST
+                })
+                        .then(response => {
+                            if (response.redirected) {
+                                window.location.href = response.url; // Redirect to the login page
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error logging out:', error);
+                        });
+            }
+        </script>
 
 
         <!-- Modal Search Start -->
@@ -294,13 +246,13 @@
                 <div class="tab-class text-center">
                     <div class="row g-4">
                         <div class="col-lg-4 text-start">
-                            <h1>Our Organic Products</h1>
+                            <h1>Our Hot Deal</h1>
                         </div>
                         <div class="col-lg-8 text-end">
                             <ul class="nav nav-pills d-inline-flex text-center mb-5">
                                 <li class="nav-item">
                                     <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-1">
-                                        <span class="text-dark" style="width: 130px;">All Products</span>
+                                        <span class="text-dark" style="width: 130px;">All Deal</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -1293,5 +1245,4 @@
         <!-- Template Javascript -->
         <script src="js/main.js"></script>
     </body>
-
 </html>

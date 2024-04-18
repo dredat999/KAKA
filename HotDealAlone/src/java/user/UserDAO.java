@@ -19,7 +19,7 @@ import util.DBUtil;
  */
 public class UserDAO {
 
-    private static final String GET_ALL = "SELECT * FROM [User]";
+    
 private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND password = ?";
 
 
@@ -73,6 +73,8 @@ private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND
         return user;
     }
     
+    private static final String GET_ALL = "SELECT * FROM [User]";
+    
     public List<UserDTO> getListUser() throws ClassNotFoundException, SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -86,12 +88,13 @@ private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND
                 rs = ps.executeQuery();
                 
                 while (rs.next()) {
-                    int userId = rs.getInt("user_id");
+                    int userId = rs.getInt("id");
                     String username = rs.getString("username");
                     String firstName = rs.getString("first_name");
+                    
                     String lastName = rs.getString("last_name");
                     String telephone = rs.getString("telephone");
-                    LocalDateTime createdDate = rs.getTimestamp("created_date").toLocalDateTime();
+                    LocalDateTime createdDate = rs.getTimestamp("created_at").toLocalDateTime();
                     LocalDateTime lastLoginDate = rs.getTimestamp("last_loginDate").toLocalDateTime();
                     boolean isActive = rs.getBoolean("is_actived");
                     int roleId = rs.getInt("role_id");
@@ -110,6 +113,33 @@ private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND
 
         return userList;
     }
+    
+    
+//    public static void main(String[] args) {
+//        try {
+//            UserDAO userDAO = new UserDAO();
+//            List<UserDTO> userList = userDAO.getListUser();
+//
+//            System.out.println("List of Users:");
+//            for (UserDTO user : userList) {
+//                System.out.println("User ID: " + user.getId());
+//                System.out.println("Username: " + user.getUsername());
+//                System.out.println("First Name: " + user.getFirst_name());
+//                System.out.println("Last Name: " + user.getLast_name());
+//                System.out.println("Telephone: " + user.getTelephone());
+//                System.out.println("Created Date: " + user.getCreated_date());
+//                System.out.println("Last Login Date: " + user.getLast_loginDate());
+//                System.out.println("Role ID: " + user.getRole_id());
+//                System.out.println("Is Active: " + user.isIs_actived());
+//                System.out.println(); // For separating each user
+//            }
+//        } catch (ClassNotFoundException | SQLException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+    
 //   public static void main(String[] args) {
 //    String username = "meomeo";
 //    String password = "123456";

@@ -12,18 +12,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author HP
  */
-@WebServlet(name="DispatchServlet", urlPatterns={"/DispatchServlet"})
-public class DispatchServlet extends HttpServlet {
-   private static final String LOGIN = "Login";
-   private static final String LOGOUT = "logout";
-    private static final String LOGIN_CONTROLLER = "LoginServlet";
-    private static final String LOGOUT_CONTROLLER = "LogOutServlet";
-    
+@WebServlet(name="LogOutServlet", urlPatterns={"/LogOutServlet"})
+public class LogOutServlet extends HttpServlet {
+   private static final String LOGIN_PAGE = "index.html";
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -34,20 +31,13 @@ public class DispatchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-             String url = LOGIN;
-        try {
-            String action = request.getParameter("action");
-            if(LOGIN.equals(action)){
-                url = LOGIN_CONTROLLER;
-            } else if(LOGOUT.equals(action)){
-                url = LOGOUT_CONTROLLER;
-            } else{
-                request.setAttribute("ERROR", "Your action not support");
+        try  {
+            HttpSession session = request.getSession(false);
+            if(session != null){
+                session.invalidate();
             }
-        }catch (Exception e) {
-            log("Error at MainController: "+ e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        } finally{
+            response.sendRedirect(LOGIN_PAGE);
         }
     } 
 

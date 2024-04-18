@@ -17,13 +17,9 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author HP
  */
-@WebServlet(name="DispatchServlet", urlPatterns={"/DispatchServlet"})
-public class DispatchServlet extends HttpServlet {
-   private static final String LOGIN = "Login";
-   private static final String LOGOUT = "logout";
-    private static final String LOGIN_CONTROLLER = "LoginServlet";
-    private static final String LOGOUT_CONTROLLER = "LogOutServlet";
-    
+@WebServlet(name="GetAllUser", urlPatterns={"/GetAllUser"})
+public class GetAllUserServlet extends HttpServlet {
+   
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -34,20 +30,8 @@ public class DispatchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-             String url = LOGIN;
-        try {
-            String action = request.getParameter("action");
-            if(LOGIN.equals(action)){
-                url = LOGIN_CONTROLLER;
-            } else if(LOGOUT.equals(action)){
-                url = LOGOUT_CONTROLLER;
-            } else{
-                request.setAttribute("ERROR", "Your action not support");
-            }
-        }catch (Exception e) {
-            log("Error at MainController: "+ e.toString());
-        } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+           
         }
     } 
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/web/shop-detail.html</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/web/index.html</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/src/java/controller/LogOutServlet.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/src/java/user/UserDAO.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/src/java/util/DBUtil.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/web/contact.html</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/web/cart.html</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/web/customer.jsp</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/src/java/controller/DispatchServlet.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/web/chackout.html</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/src/java/controller/LoginServlet.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/web/admin.jsp</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/src/java/controller/GetAllUserServlet.java</file>
+            <file>file:/C:/Users/HP/Documents/NetBeansProjects/HotDealAlone/src/java/user/UserDTO.java</file>
+        </group>
+    </open-files>
+</project-private>

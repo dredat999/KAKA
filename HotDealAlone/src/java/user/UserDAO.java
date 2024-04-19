@@ -8,10 +8,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import util.DBUtil;
+
+
 
 /**
  *
@@ -19,62 +23,70 @@ import util.DBUtil;
  */
 public class UserDAO {
 
-    
-private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND password = ?";
+    private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND password = ?";
+private static final String UPDATE_LAST_LOGIN = "UPDATE [User] SET last_loginDate = ? WHERE id = ?";
 
+public static UserDTO loginUser(String username, String password) throws ClassNotFoundException, SQLException {
+    // Initialize variables
+    Connection conn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    UserDTO user = null;
 
-    public static UserDTO loginUser(String username, String password) throws ClassNotFoundException, SQLException {
-        // Initialize variables
-        Connection conn = null;
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        UserDTO user = null;
+    try {
+        // Get database connection
+        conn = DBUtil.getConnection();
 
-        try {
-            // Get database connection
-            conn = DBUtil.getConnection();
+        // Prepare SQL statement
+        ps = conn.prepareStatement(LOGIN);
+        ps.setString(1, username);
+        ps.setString(2, password);
 
-            // Prepare SQL statement
-            ps = conn.prepareStatement(LOGIN);
-            ps.setString(1, username);
-            ps.setString(2, password);
+        // Execute query
+        rs = ps.executeQuery();
 
-            // Execute query
-            rs = ps.executeQuery();
+        // Process result set
+        if (rs.next()) {
+            // Retrieve user data from result set
+            int userId = rs.getInt("id");
+            String firstname = rs.getString("first_name");
+            String lastname = rs.getString("last_name");
+            String telephone = rs.getString("telephone");
+            int role = rs.getInt("role_id");
+            LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
+            LocalDateTime lastLogin = rs.getTimestamp("last_loginDate").toLocalDateTime();
+            boolean isActive = rs.getBoolean("is_actived");
 
-            // Process result set
-            if (rs.next()) {
-                // Retrieve user data from result set
-                int userId = rs.getInt("id");
-                String firstname = rs.getString("first_name");
-                String lastname = rs.getString("last_name");
-                String telephone = rs.getString("telephone");
-                int role = rs.getInt("role_id");
-                LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
-                LocalDateTime lastLogin = rs.getTimestamp("last_loginDate").toLocalDateTime();
-                boolean isActive = rs.getBoolean("is_actived");
+            // Update last login date
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            PreparedStatement updatePs = conn.prepareStatement(UPDATE_LAST_LOGIN);
+            updatePs.setTimestamp(1, Timestamp.valueOf(currentDateTime));
+            updatePs.setInt(2, userId);
+            updatePs.executeUpdate();
+            updatePs.close();
 
-                // Create UserDTO object
-                user = new UserDTO(userId, username, password, firstname, lastname, telephone, createdAt, lastLogin, role, isActive);
-            }
-        } finally {
-            // Close resources
-            if (rs != null) {
-                rs.close();
-            }
-            if (ps != null) {
-                ps.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
+            // Create UserDTO object
+            user = new UserDTO(userId, username, password, firstname, lastname, telephone, createdAt, currentDateTime, role, isActive);
         }
-
-        return user;
+    } finally {
+        // Close resources
+        if (rs != null) {
+            rs.close();
+        }
+        if (ps != null) {
+            ps.close();
+        }
+        if (conn != null) {
+            conn.close();
+        }
     }
-    
+
+    return user;
+}
+
+
     private static final String GET_ALL = "SELECT * FROM [User]";
-    
+
     public List<UserDTO> getListUser() throws ClassNotFoundException, SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
@@ -86,19 +98,19 @@ private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND
             if (conn != null) {
                 ps = conn.prepareStatement(GET_ALL);
                 rs = ps.executeQuery();
-                
+
                 while (rs.next()) {
                     int userId = rs.getInt("id");
                     String username = rs.getString("username");
                     String firstName = rs.getString("first_name");
-                    
+
                     String lastName = rs.getString("last_name");
                     String telephone = rs.getString("telephone");
                     LocalDateTime createdDate = rs.getTimestamp("created_at").toLocalDateTime();
                     LocalDateTime lastLoginDate = rs.getTimestamp("last_loginDate").toLocalDateTime();
                     boolean isActive = rs.getBoolean("is_actived");
                     int roleId = rs.getInt("role_id");
-                    
+
                     UserDTO user = new UserDTO(userId, username, firstName, lastName, telephone, createdDate, lastLoginDate, roleId, isActive);
                     userList.add(user);
                 }
@@ -106,15 +118,20 @@ private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) rs.close();
-            if (ps != null) ps.close();
-            if (conn != null) conn.close();
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
 
         return userList;
     }
-    
-    
+
 //    public static void main(String[] args) {
 //        try {
 //            UserDAO userDAO = new UserDAO();
@@ -137,33 +154,32 @@ private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND
 //            e.printStackTrace();
 //        }
 //    }
+    public static void main(String[] args) {
+        String username = "kaka";
+        String password = "123";
 
+        try {
+            // Attempt to log in the user
+            UserDTO user = loginUser(username, password);
 
-    
-   public static void main(String[] args) {
-    String username = "meomeo";
-    String password = "123456";
+            // Check if login was successful
+            if (user != null) {
+                // Print user information
+                System.out.println("Login successful!");
+                System.out.println("User ID: " + user.getId());
+                System.out.println("Username: " + user.getUsername());
+                System.out.println("Password: " + user.getPassword());
+                System.out.println("First Name: " + user.getFirst_name());
+                System.out.println("Last Name: " + user.getLast_name());
+                System.out.println("Last Login: " + user.getLast_loginDate());
+                // Print login failure message
 
-    try {
-        // Attempt to log in the user
-        UserDTO user = loginUser(username, password);
-        
-        // Check if login was successful
-        if (user != null) {
-            // Print user information
-            System.out.println("Login successful!");
-            System.out.println("User ID: " + user.getId());
-            System.out.println("Username: " + user.getUsername());
-            System.out.println("Password: " + user.getPassword());
-            System.out.println("First Name: " + user.getFirst_name());
-            System.out.println("Last Name: " + user.getLast_name());
-            System.out.println("Last Login: " + user.getLast_loginDate());
-            // Print login failure message
-            
+            }else{
+                System.err.println("Login fail!!!!");
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            // Print any exceptions that occur during the login process
+            e.printStackTrace();
         }
-    } catch (ClassNotFoundException | SQLException e) {
-        // Print any exceptions that occur during the login process
-        e.printStackTrace();
     }
-   }
 }

@@ -74,7 +74,7 @@
                     </div>
                     <div class="modal-body" id="signupForm" style="display: none;"> <!-- Added an id to the sign-up form and set display: none -->
                         <!-- Sign Up Form -->
-                        <form id="signupForm">
+                        <form id="signupForm" action="DispatchServlet" method="POST">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -100,7 +100,7 @@
                                 <input type="email" class="form-control" id="email" name="email" required>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Sign Up</button>
+                                <button type="submit" class="btn btn-primary" name="action" value="Login">Sign Up</button>
                             </div>
                         </form>
                         <!-- End Sign Up Form -->
@@ -149,21 +149,20 @@
                     <div class="top-link pe-2">
                         <a href="#" class="text-white"><small class="text-white mx-2">Privacy Policy</small>/</a>
                         <a href="#" class="text-white"><small class="text-white mx-2">Terms of Use</small>/</a>
-                        <a href="#" class="text-white"><small class="text-white ms-2">Sales and Refunds</small></a>
+                        <a href="#" class="text-white"><small class="text-white ms-2">Please Log in for more !!</small></a>
                     </div>
                 </div>
             </div>
             <div class="container px-0">
                 <nav class="navbar navbar-light bg-white navbar-expand-xl">
-                    <a href="index.html" class="navbar-brand"><h1 class="text-primary display-6">Hot Deals</h1></a>
+                    <a href="${pageContext.request.contextPath}/index.jsp" class="navbar-brand"><h1 class="text-primary display-6">Hot Deals</h1></a>
                     <button class="navbar-toggler py-2 px-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                         <span class="fa fa-bars text-primary"></span>
                     </button>
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a href="${pageContext.request.contextPath}/index.jsp" class="nav-item nav-link active">Home</a>
                             <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="shop-detail.html" class="nav-item nav-link">Shop Detail</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
@@ -1255,7 +1254,6 @@
                         <div class="d-flex flex-column text-start footer-item">
                             <h4 class="text-light mb-3">Account</h4>
                             <a class="btn-link" href="">My Account</a>
-                            <a class="btn-link" href="">Shop details</a>
                             <a class="btn-link" href="">Shopping Cart</a>
                             <a class="btn-link" href="">Wishlist</a>
                             <a class="btn-link" href="">Order History</a>

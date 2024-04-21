@@ -19,6 +19,22 @@ public class UserDTO {
     private int role_id;
     private boolean is_actived;
 
+        public UserDTO(int id, String username, String password, String first_name, String last_name, String telephone, LocalDateTime created_date, LocalDateTime last_loginDate, LocalDateTime last_modified, int role_id, boolean is_actived) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.telephone = telephone;
+        this.created_date = created_date;
+        this.last_loginDate = last_loginDate;
+        this.last_modified = last_modified;
+        this.role_id = role_id;
+        this.is_actived = is_actived;
+    }
+    
+    
+    
     public UserDTO(int id, String username, String password, String first_name, String last_name, String telephone, LocalDateTime created_date, LocalDateTime last_loginDate, int role_id, boolean is_actived) {
         this.id = id;
         this.username = username;

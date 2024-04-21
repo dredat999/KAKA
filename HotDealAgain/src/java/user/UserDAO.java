@@ -54,7 +54,6 @@ public class UserDAO {
                 int role = rs.getInt("role_id");
                 boolean isActive = rs.getBoolean("is_actived");
 
-               
                 // Update last login date
                 LocalDateTime currentDateTime = LocalDateTime.now();
                 PreparedStatement updatePs = conn.prepareStatement(UPDATE_LAST_LOGIN);
@@ -128,6 +127,36 @@ public class UserDAO {
         }
 
         return userList;
+    }
+
+
+    public boolean addUser(UserDTO user) throws ClassNotFoundException {
+        String sql = "INSERT INTO User(username, password, first_name, last_name, telephone, created_date, last_loginDate, last_modified, role_id, is_actived) "
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            Connection conn = DBUtil.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(2, user.getUsername());
+            ps.setString(3, user.getPassword());
+            ps.setString(4, user.getFirst_name());
+            ps.setString(5, user.getLast_name());
+            ps.setString(6, user.getTelephone());
+            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now())); // Set created_date to current time
+            ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now())); // Set last_loginDate to current time
+            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now())); // Set last_modified to current time
+            ps.setInt(10, user.getRole_id());
+            ps.setBoolean(11, user.isIs_actived());
+
+            int rowCount = ps.executeUpdate();
+            if (rowCount > 0) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            System.out.println("Insert user error!" + ex.getMessage());
+        }
+        return false;
     }
 
 //    public static void main(String[] args) {

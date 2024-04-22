@@ -138,16 +138,16 @@ public class UserDAO {
             Connection conn = DBUtil.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(2, user.getUsername());
-            ps.setString(3, user.getPassword());
-            ps.setString(4, user.getFirst_name());
-            ps.setString(5, user.getLast_name());
-            ps.setString(6, user.getTelephone());
-            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now())); // Set created_date to current time
-            ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now())); // Set last_loginDate to current time
-            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now())); // Set last_modified to current time
-            ps.setInt(10, user.getRole_id());
-            ps.setBoolean(11, user.isIs_actived());
+            ps.setString(1, user.getUsername());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getFirst_name());
+            ps.setString(4, user.getLast_name());
+            ps.setString(5, user.getTelephone());
+            ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now())); // Set created_date to current time
+            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now())); // Set last_loginDate to current time
+            ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now())); // Set last_modified to current time
+            ps.setInt(9, 2);
+            ps.setBoolean(10, true);
 
             int rowCount = ps.executeUpdate();
             if (rowCount > 0) {

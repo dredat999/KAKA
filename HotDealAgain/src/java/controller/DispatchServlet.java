@@ -19,7 +19,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(name="DispatchServlet", urlPatterns={"/DispatchServlet"})
 public class DispatchServlet extends HttpServlet {
    private static final String LOGIN = "Login";
-   private static final String LOGOUT = "logout";
+   private static final String LOGOUT = "Logout";
     private static final String LOGIN_CONTROLLER = "LoginServlet";
     private static final String LOGOUT_CONTROLLER = "LogoutServlet";
     /** 
@@ -37,7 +37,7 @@ public class DispatchServlet extends HttpServlet {
         try {
             String action = request.getParameter("action");
             if(LOGIN.equals(action)){
-                url = LOGIN_CONTROLLER;
+                    url = LOGIN_CONTROLLER;
             } else if(LOGOUT.equals(action)){
                 url = LOGOUT_CONTROLLER;
             } else{

@@ -106,6 +106,22 @@
                     </div>
                 </li>
                 <li class="nav-item menu-items">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-laptop"></i>
+                        </span>
+                        <span class="menu-title">Deal Management</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Show Deal List</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/add-product.jsp">Add Deal</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item menu-items">
                     <a class="nav-link" href="pages/forms/basic_elements.html">
                         <span class="menu-icon">
                             <i class="mdi mdi-playlist-play"></i>
@@ -165,7 +181,7 @@
                 </li>
             </ul>
         </nav> 
-                                <!-- container-scroller -->
+        <!-- container-scroller -->
         <!-- plugins:js -->
         <script src="assets/vendors/js/vendor.bundle.base.js"></script>
         <!-- endinject -->
@@ -182,7 +198,7 @@
         <script src="assets/js/misc.js"></script>
         <script src="assets/js/settings.js"></script>
         <script src="assets/js/todolist.js"></script>   
-      
+
         <script src="assets/js/dashboard.js"></script>
         <!-- End custom js for this page -->
     </body>

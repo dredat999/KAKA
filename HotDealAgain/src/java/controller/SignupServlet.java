@@ -12,7 +12,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import user.UserDAO;
+import user.UserDTO;
 
 /**
  *
@@ -31,44 +33,17 @@ public class SignupServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        // Retrieve form data
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String firstName = request.getParameter("firstname");
-        String lastName = request.getParameter("lastname");
-        String telephone = request.getParameter("telephone");
-        String email = request.getParameter("email");
-
-        // Validate form data
-        if (username == null || username.isEmpty() || password == null || password.isEmpty()
-                || firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty()
-                || telephone == null || telephone.isEmpty() || email == null || email.isEmpty()) {
-            // Handle validation errors, perhaps by showing an error message to the user
-            request.setAttribute("error", "Please fill in all fields");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
-            return;
-        }
-
-        // Perform additional validation (e.g., check username uniqueness, validate email format)
-
-        // Process the sign-up (e.g., save user to database)
-        try {
-            UserDAO userDao = new UserDAO();
-            boolean success = userDao.addUser(username, password, firstName, lastName, telephone, email);
-            if (success) {
-                // Redirect to a success page
-                response.sendRedirect("signup-success.jsp");
-            } else {
-                // Handle database insertion failure
-                request.setAttribute("error", "Failed to sign up. Please try again later.");
-                request.getRequestDispatcher("signup.jsp").forward(request, response);
-            }
-        } catch (Exception e) {
-            // Handle exceptions (e.g., database connection error)
-            e.printStackTrace();
-            request.setAttribute("error", "An unexpected error occurred. Please try again later.");
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet SignupServlet</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet SignupServlet at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     } 
 
@@ -96,7 +71,53 @@ public class SignupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
+    // Retrieve form data
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
+    String firstName = request.getParameter("firstname");
+    String lastName = request.getParameter("lastname");
+    String telephone = request.getParameter("telephone");
+
+    // Validate form data
+    if (username == null || username.isEmpty() || password == null || password.isEmpty()
+            || firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty()
+            || telephone == null || telephone.isEmpty()) {
+        // Handle validation errors, perhaps by showing an error message to the user
+        request.setAttribute("error", "Please fill in all fields");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+        return;
+    }
+
+    // Perform additional validation (e.g., check username uniqueness, validate email format)
+    // Process the sign-up (e.g., save user to database)
+    try {
+        UserDTO user = new UserDTO();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setFirst_name(firstName);
+        user.setLast_name(lastName);
+        user.setTelephone(telephone);
+
+        UserDAO userDao = new UserDAO();
+        boolean success = userDao.addUser(user);
+        if (success) {
+            // Redirect to a success page
+            response.sendRedirect("customer.jsp");
+        } else {
+            // Handle database insertion failure
+            request.setAttribute("error", "Failed to sign up. Please try again later.");
+            request.getRequestDispatcher("index.jsp").forward(request, response);
+        }
+    } catch (Exception e) {
+        // Handle exceptions (e.g., database connection error)
+        e.printStackTrace();
+        request.setAttribute("error", "An unexpected error occurred. Please try again later.");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
+    }
+
         processRequest(request, response);
+        
     }
 
     /** 

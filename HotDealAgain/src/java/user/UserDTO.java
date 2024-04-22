@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
  * @author HP
  */
 public class UserDTO {
+
     private int id;
     private String username;
     private String password;
@@ -19,7 +20,10 @@ public class UserDTO {
     private int role_id;
     private boolean is_actived;
 
-        public UserDTO(int id, String username, String password, String first_name, String last_name, String telephone, LocalDateTime created_date, LocalDateTime last_loginDate, LocalDateTime last_modified, int role_id, boolean is_actived) {
+    public UserDTO() {
+    }
+
+    public UserDTO(int id, String username, String password, String first_name, String last_name, String telephone, LocalDateTime created_date, LocalDateTime last_loginDate, LocalDateTime last_modified, int role_id, boolean is_actived) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -32,9 +36,7 @@ public class UserDTO {
         this.role_id = role_id;
         this.is_actived = is_actived;
     }
-    
-    
-    
+
     public UserDTO(int id, String username, String password, String first_name, String last_name, String telephone, LocalDateTime created_date, LocalDateTime last_loginDate, int role_id, boolean is_actived) {
         this.id = id;
         this.username = username;
@@ -58,7 +60,7 @@ public class UserDTO {
         this.last_loginDate = last_loginDate;
         this.role_id = role_id;
         this.is_actived = is_actived;
-    }   
+    }
 
     UserDTO(int id, String username, String password, String firstname, String lastname, String telephone, int role, boolean active) {
         this.id = id;
@@ -69,9 +71,7 @@ public class UserDTO {
         this.role_id = role;
         this.is_actived = active;
     }
-    
-    
-    
+
     /**
      * @return the id
      */
@@ -225,6 +225,5 @@ public class UserDTO {
     public void setIs_actived(boolean is_actived) {
         this.is_actived = is_actived;
     }
-    
-    
+
 }

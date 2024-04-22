@@ -74,7 +74,7 @@
                     </div>
                     <div class="modal-body" id="signupForm" style="display: none;"> <!-- Added an id to the sign-up form and set display: none -->
                         <!-- Sign Up Form -->
-                        <form id="signupForm" action="DispatchServlet" method="POST">
+                        <form id="signupForm" action="SignupServlet"method="POST">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username" required>
@@ -95,12 +95,8 @@
                                 <label for="telephone" class="form-label">Telephone</label>
                                 <input type="text" class="form-control" id="telephone" name="telephone" required>
                             </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary" name="action" value="Login">Sign Up</button>
+                                <button type="submit" class="btn btn-primary">Sign Up</button>
                             </div>
                         </form>
                         <!-- End Sign Up Form -->

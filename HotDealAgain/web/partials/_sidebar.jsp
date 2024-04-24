@@ -37,7 +37,7 @@
                                 <span class="count bg-success"></span>
                             </div>
                             <div class="profile-name">
-                                <h5 class="mb-0 font-weight-normal"> <%= session.getAttribute("FULL_NAME")%> </h5>
+                                <h5 class="mb-0 font-weight-normal"> ${sessionScope.FULL_NAME} </h5>
                                 <span>Admin</span>
                             </div>
                         </div>
@@ -115,7 +115,11 @@
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/buttons.html">Show Deal List</a></li>
+                            <form action="DispatchServlet" method="POST">
+                                <input type="hidden" name="action" value="Show Product">
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none; text-decoration: none;">Show Deal List</button>
+                            </form>
+
                             <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/add-product.jsp">Add Deal</a></li>
                             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
                         </ul>

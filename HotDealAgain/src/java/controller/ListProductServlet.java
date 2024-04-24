@@ -10,6 +10,11 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import java.util.List;
+import product.ProductDAO;
+import product.ProductDTO;
 
 /**
  *
@@ -29,17 +34,21 @@ public class ListProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ListProductServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ListProductServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        try {
+            HttpSession session = request.getSession();
+            // Retrieve all products from the database
+            ProductDAO productDAO = new ProductDAO();
+            List<ProductDTO> products = productDAO.getAllProducts();
+
+            // Set the list of products as an attribute in the request
+            session.setAttribute("PRODUCT_LIST", products);
+
+            // Forward the request to the JSP page to display the list of products
+            request.getRequestDispatcher("list-product.jsp").forward(request, response);
+        } catch (SQLException | ClassNotFoundException e) {
+            // Handle any errors
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Failed to retrieve products");
         }
     }
 

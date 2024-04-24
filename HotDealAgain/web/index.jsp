@@ -96,7 +96,7 @@
                                 <input type="text" class="form-control" id="telephone" name="telephone" required>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Sign Up</button>
+                                <button type="submit" class="btn btn-primary"value="Signup">Sign Up</button>
                             </div>
                         </form>
                         <!-- End Sign Up Form -->

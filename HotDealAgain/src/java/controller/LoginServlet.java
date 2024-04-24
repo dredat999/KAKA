@@ -4,6 +4,8 @@ package controller;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+import category.CategoryDAO;
+import category.CategoryDTO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -11,6 +13,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import product.ProductDAO;
+import product.ProductDTO;
 import user.UserDAO;
 import user.UserDTO;
 
@@ -42,6 +46,9 @@ public class LoginServlet extends HttpServlet {
         try {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
+            ProductDAO proDao = new ProductDAO();
+            CategoryDAO cateDao = new CategoryDAO();
+            
             UserDAO dao = new UserDAO();
             UserDTO loginUser = dao.loginUser(username, password);
             if (loginUser != null) {
@@ -58,6 +65,8 @@ public class LoginServlet extends HttpServlet {
                     url = ADMIN_PAGE;
                     List<UserDTO> listUser = dao.getListUser();
                     session.setAttribute("USER_LIST", listUser);
+                    List<CategoryDTO> listCategory = cateDao.getAllCategories();
+                    session.setAttribute("CATEGORY_LIST", listCategory);
                 } else {
                     request.setAttribute("ERROR_ROLE", "Your role is not support...");
                 }

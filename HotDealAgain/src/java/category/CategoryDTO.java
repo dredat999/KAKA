@@ -4,11 +4,13 @@
  */
 package category;
 
+import java.io.Serializable;
+
 /**
  *
  * @author ADMIN-PC
  */
-public class CategoryDTO {
+public class CategoryDTO implements Serializable{
 
     private int id;
     private String name;

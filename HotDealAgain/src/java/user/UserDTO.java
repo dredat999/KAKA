@@ -13,6 +13,7 @@ public class UserDTO {
     private String password;
     private String first_name;
     private String last_name;
+    private String email;
     private String telephone;
     private LocalDateTime created_date;
     private LocalDateTime last_loginDate;
@@ -23,13 +24,14 @@ public class UserDTO {
     public UserDTO() {
     }
 
-    public UserDTO(int id, String username, String password, String first_name, String last_name, String telephone, LocalDateTime created_date, LocalDateTime last_loginDate, LocalDateTime last_modified, int role_id, boolean is_actived) {
+    public UserDTO(int id, String username, String password, String first_name, String last_name, String telephone,String email, LocalDateTime created_date, LocalDateTime last_loginDate, LocalDateTime last_modified, int role_id, boolean is_actived) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.first_name = first_name;
         this.last_name = last_name;
         this.telephone = telephone;
+        this.email = email;
         this.created_date = created_date;
         this.last_loginDate = last_loginDate;
         this.last_modified = last_modified;
@@ -224,6 +226,20 @@ public class UserDTO {
      */
     public void setIs_actived(boolean is_actived) {
         this.is_actived = is_actived;
+    }
+
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

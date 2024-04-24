@@ -4,8 +4,6 @@
  */
 package product;
 
-import java.util.Date;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 /**
  *
@@ -22,6 +20,7 @@ public class ProductDTO {
     private LocalDateTime createdAt;
     private int inventory;
     private boolean isActive;
+    
 
     public ProductDTO() {
     }
@@ -39,6 +38,7 @@ public class ProductDTO {
         this.isActive = isActive;
     }
 
+    
     public int getId() {
         return id;
     }
@@ -118,7 +118,6 @@ public class ProductDTO {
     public void setIsActive(boolean isActive) {
         this.isActive = isActive;
     }
-
     
     
 }

@@ -20,7 +20,37 @@ public class ProductDAO {
     private static final String DELETE_PRODUCT = "DELETE FROM Product WHERE id = ?";
     private static final String SELECT_PRODUCT_COUNT_BY_CATEGORY_ID = "SELECT COUNT(*) AS product_count FROM Product WHERE category_id = ?";
     private static final String SELECT_PRODUCTS_BY_CATEGORY_ID = "SELECT * FROM Product WHERE category_id = ?";
+     private static final String GET_CATEGORY_NAME_BY_ID_QUERY = 
+            "SELECT Category.name " +
+            "FROM Category " +
+            "JOIN Product ON Category.id = Product.category_id " +
+            "WHERE Product.id = ?";
 
+
+     public String getCategoryNameById(int productId) throws ClassNotFoundException {
+        String categoryName = null;
+
+        try (
+            // Establish connection
+            Connection connection = DBUtil.getConnection();
+            // Prepare statement
+            PreparedStatement statement = connection.prepareStatement(GET_CATEGORY_NAME_BY_ID_QUERY);
+        ) {
+            // Set product ID parameter
+            statement.setInt(1, productId);
+            // Execute query
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // If result set is not empty, retrieve category name
+                if (resultSet.next()) {
+                    categoryName = resultSet.getString("name");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return categoryName;
+    }
     // Method to insert a new product into the database
     public void addProduct(ProductDTO product) throws SQLException, ClassNotFoundException {
         try ( Connection conn = DBUtil.getConnection();  PreparedStatement stmt = conn.prepareStatement(INSERT_PRODUCT)) {

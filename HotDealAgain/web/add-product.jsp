@@ -5,7 +5,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add Product</title>
+        <title>Add Deal</title>
         <!-- plugins:css -->
         <link rel="stylesheet" href="assets/vendors/mdi/css/materialdesignicons.min.css">
         <link rel="stylesheet" href="assets/vendors/css/vendor.bundle.base.css">
@@ -31,40 +31,81 @@
         <link rel="shortcut icon" href="assets/images/favicon.png" />
     </head>
     <body>
-         <c:if test="${sessionScope.USER_ROLE eq 1}">
-        <h1>Add Product</h1>
-        <form action="AddProductServlet" method="post">
-            <label for="name">Name:</label><br>
-            <input type="text" id="name" name="name" required><br><br>
+        <c:if test="${sessionScope.USER_ROLE eq 1}">
+            <div class="container-scroller">
+                <!-- Sidebar -->
+                <jsp:include page="/partials/_sidebar.jsp" />
+                <!-- End Sidebar -->
 
-            <label for="description">Description:</label><br>
-            <textarea id="description" name="description" rows="4" cols="50"></textarea><br><br>
+                <div class="container-fluid page-body-wrapper">
+                    <!-- Navbar -->
+                    <jsp:include page="/partials/_navbar.jsp" />
+                    <!-- End Navbar -->
 
-            <label for="price">Price:</label><br>
-            <input type="number" id="price" name="price" required><br><br>
+                    <div class="main-panel">
+                        <div class="content-wrapper">
+                            <div class="page-title">
+                                <h1>Add Deal</h1>
+                            </div>
 
-            <label for="discount">Discount Percent:</label><br>
-            <input type="number" id="discount" name="discount" min="0" max="100"><br><br>
+                            <div class="add-product-form">
+                                <form action="DispatchServlet" method="post">
+                                    <div class="form-group">
+                                        <label for="name">Name:</label>
+                                        <input type="text" id="name" name="name" class="form-control" required>
+                                    </div>
 
-            <label for="expiration">Expiration Date:</label><br>
-            <input type="date" id="expiration" name="expiration"><br><br>
+                                    <div class="form-group">
+                                        <label for="description">Description:</label>
+                                        <textarea id="description" name="description" rows="4" cols="50" class="form-control"></textarea>
+                                    </div>
 
-            <label for="category">Category:</label><br>
-            <select id="category" name="category">
-                <c:forEach var="category" items="${categories}">
-                    <option value="${category.id}">${category.name}</option>
-                </c:forEach>
-            </select><br><br>
+                                    <div class="form-group">
+                                        <label for="price">Price:</label>
+                                        <input type="text" id="price" name="price" class="form-control" required>
+                                    </div>
 
-            <label for="inventory">Inventory:</label><br>
-            <input type="number" id="inventory" name="inventory" min="0"><br><br>
+                                    <div class="form-group">
+                                        <label for="discount">Discount Percent:</label>
+                                        <input type="number" id="discount" name="discount" min="0" max="100" class="form-control">
+                                    </div>
 
-            <label for="isActive">Is Active:</label><br>
-            <input type="checkbox" id="isActive" name="isActive" value="true"><br><br>
+                                    <div class="form-group">
+                                        <label for="expiration">Expiration Date:</label>
+                                        <input type="date" id="expiration" name="expiration" class="form-control">
+                                    </div>
 
-            <input type="submit" value="Add Product">
-        </form>
-         </c:if>
+                                    <div class="form-group">
+                                        <label for="category">Category:</label>
+                                        <select id="category" name="category" class="form-control">
+                                            <c:forEach var="category" items="${sessionScope.CATEGORY_LIST}">
+                                                <option value="${category.id}">${category.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inventory">Inventory:</label>
+                                        <input type="number" id="inventory" name="inventory" min="0" class="form-control">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="form-check">
+                                            <input type="checkbox" id="isActive" name="isActive" value="true" class="form-check-input">
+                                            <label class="form-check-label" for="isActive">Is Active</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-primary" name="action" value="Add Product"  onclick="return validateForm()">Add Product</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:if>
 
         <c:if test="${sessionScope.USER_ROLE ne 1}">
             <!-- Display error message for unauthorized users -->
@@ -75,7 +116,23 @@
             </div>
 
         </c:if>
-            <script src="assets/vendors/js/vendor.bundle.base.js"></script>
+        <script>
+            function validateForm() {
+// Retrieve form inputs
+                var name = document.getElementById('name').value;
+                var price = 
+// Perform validation
+                if (name.trim() === '') {
+                    alert('Name is required.');
+                    return false; // Prevent form submission
+                }
+                if()
+// Perform other validation checks for other fields if needed
+// Return true if all validation checks pass
+                return true;
+            }
+        </script>
+        <script src="assets/vendors/js/vendor.bundle.base.js"></script>
         <!-- endinject -->
         <!-- Plugin js for this page -->
         <script src="assets/vendors/chart.js/Chart.min.js"></script>

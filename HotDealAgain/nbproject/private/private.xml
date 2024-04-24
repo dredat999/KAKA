@@ -3,54 +3,60 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/UpdateQuantityCartServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/add-category.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/admin-login.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/LogoutServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_navbar.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/index.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/buttons.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_sidebar.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/SignupServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AddCategoryServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/customer-partials/_sidebar.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/orderdetail/OrderDetailDAO.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/ListProductServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/user/UserDAO.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/admin.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_footer.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/shop.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/CheckoutServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AdminServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_sidebar.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/chackout.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/LoginServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/cart.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/customer.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AddToCartServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AddProductServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/cart/Cart.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/RemoveCartServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_navbar.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/cart/CartItem.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/product/ProductDAO.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/checkout.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/GetShopPageServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/DispatchServlet.java</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/shop.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/cart.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/list-product.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/update-user.jsp</file>
             <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/typography.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/dropdowns.html</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/show-user-list.jsp</file>
-            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/customer-partials/_nav-bar.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/user/UserDAO.java</file>
             <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/contact.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/chackout.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/shop.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_sidebar.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_sidebar.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/cart.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_navbar.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/shop-detail.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/customer-partials/_nav-bar.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/category/CategoryDTO.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/shop.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/product/ProductDTO.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/SignupServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/customer.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/LoginServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_footer.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AddProductServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/product/ProductDAO.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AdminServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/admin-login.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AddCategoryServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/buttons.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/GetShopPageServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/list-product.jsp</file>
             <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/add-product.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/add-category.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/checkout.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/category/CategoryDAO.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AddUserServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/ListProductServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/cart.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/AddToCartServlet.java</file>
             <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/user/UserDTO.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/cart/CartItem.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/update-user.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/UpdateQuantityCartServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/orderdetail/OrderDetailDAO.java</file>
             <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/order/OrderDAO.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/order/OrderDTO.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/show-user-list.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/DispatchServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/customer-partials/_sidebar.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/index.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/CheckoutServlet.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/cart/Cart.java</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/partials/_navbar.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/admin.jsp</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/pages/ui-features/dropdowns.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/LogoutServlet.java</file>
             <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/web/404.html</file>
+            <file>file:/C:/Users/HP/Desktop/KAKA/HotDealAgain/src/java/controller/RemoveCartServlet.java</file>
         </group>
     </open-files>
 </project-private>

@@ -99,8 +99,14 @@
                     </a>
                     <div class="collapse" id="ui-basic">
                         <ul class="nav flex-column sub-menu">
-                            <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/pages/ui-features/show-user-list.jsp">Show User List</a></li>
-                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/dropdowns.html">Dropdowns</a></li>
+                            <form action="DispatchServlet" method="POST">
+                                <input type="hidden" name="action" value="Show User">
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none; text-decoration: none;">Show User List</button>
+                            </form>
+                            <form action="DispatchServlet" method="POST">
+                                <input type="hidden" name="action" value="Update User">
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none; text-decoration: none;">Update User By ID</button>
+                            </form>
                             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
                         </ul>
                     </div>
@@ -121,6 +127,28 @@
                             </form>
 
                             <li class="nav-item"> <a class="nav-link" href="${pageContext.request.contextPath}/add-product.jsp">Add Deal</a></li>
+                            <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                        </ul>
+                    </div>
+                </li>
+                 <li class="nav-item menu-items">
+                    <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                        <span class="menu-icon">
+                            <i class="mdi mdi-laptop"></i>
+                        </span>
+                        <span class="menu-title">Order Management</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="ui-basic">
+                        <ul class="nav flex-column sub-menu">
+                            <form action="DispatchServlet" method="POST">
+                                <input type="hidden" name="action" value="View Order">
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none; text-decoration: none;">Show Order List</button>
+                            </form>
+                            <form action="DispatchServlet" method="POST">
+                                <input type="hidden" name="action" value="Update User">
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0; border: none; background: none; text-decoration: none;">Update User By ID</button>
+                            </form>
                             <li class="nav-item"> <a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
                         </ul>
                     </div>

@@ -24,7 +24,7 @@ import user.UserDTO;
  */
 public class LoginServlet extends HttpServlet {
 
-    private static final String LOGIN = "index.jsp";
+    private static final String LOGIN = "login.jsp";
     private static final String USER_PAGE = "customer.jsp";
     private static final String ADMIN_PAGE = "admin.jsp";
     private static final int USER_ROLE = 2;
@@ -46,7 +46,6 @@ public class LoginServlet extends HttpServlet {
         try {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
-            ProductDAO proDao = new ProductDAO();
             CategoryDAO cateDao = new CategoryDAO();
             
             UserDAO dao = new UserDAO();
@@ -59,16 +58,18 @@ public class LoginServlet extends HttpServlet {
 
                 int role = loginUser.getRole_id();
                 session.setAttribute("USER_ROLE", role);
-                if (role == USER_ROLE) {
-                    url = USER_PAGE;
-                } else if (role == ADMIN_ROLE) {
-                    url = ADMIN_PAGE;
-                    List<UserDTO> listUser = dao.getListUser();
-                    session.setAttribute("USER_LIST", listUser);
-                    List<CategoryDTO> listCategory = cateDao.getAllCategories();
-                    session.setAttribute("CATEGORY_LIST", listCategory);
-                } else {
-                    request.setAttribute("ERROR_ROLE", "Your role is not support...");
+                switch (role) {
+                    case USER_ROLE:
+                        url = USER_PAGE;
+                        break;
+                    case ADMIN_ROLE:
+                        url = ADMIN_PAGE;
+                        List<CategoryDTO> listCategory = cateDao.getAllCategories();
+                        session.setAttribute("CATEGORY_LIST", listCategory);
+                        break;
+                    default:
+                        request.setAttribute("ERROR_ROLE", "Your role is not support...");
+                        break;
                 }
             } else {
                 request.setAttribute("ERROR", "Incorrect UserID/Password...");

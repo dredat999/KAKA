@@ -13,7 +13,8 @@ public class OrderDAO {
 
     private static final String SELECT_ALL_ORDERS = "SELECT * FROM [Order]";
     private static final String SELECT_ORDER_BY_ID = "SELECT * FROM [Order] WHERE id = ?";
-    private static final String INSERT_ORDER = "INSERT INTO [Order] (quantity, created_at, total_price, user_id) VALUES (?, ?, ?, ?)";
+        private static final String INSERT_ORDER = "INSERT INTO [Order] (created_at, amount, address, note, user_id, status) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String UPDATE_ORDER_STATUS = "UPDATE [Order] SET status = ? WHERE id = ?";
 
     public List<OrderDTO> getAllOrders() throws SQLException, ClassNotFoundException {
         List<OrderDTO> orders = new ArrayList<>();
@@ -39,46 +40,41 @@ public class OrderDAO {
 
     public OrderDTO addOrder(OrderDTO order) throws SQLException, ClassNotFoundException {
         OrderDTO newOrder = null;
-
         try ( Connection conn = DBUtil.getConnection();  PreparedStatement stmt = conn.prepareStatement(INSERT_ORDER, PreparedStatement.RETURN_GENERATED_KEYS)) {
-            stmt.setInt(1, order.getQuantity());
-            stmt.setTimestamp(2, java.sql.Timestamp.valueOf(order.getCreatedAt()));
-            stmt.setDouble(3, order.getTotalPrice());
-            stmt.setInt(4, order.getUserId());
+            stmt.setObject(1, order.getCreatedAt());
+            stmt.setDouble(2, order.getAmount());
+            stmt.setString(3, order.getAddress());
+            stmt.setString(4, order.getNote());
+            stmt.setInt(5, order.getUserId());
+            stmt.setString(6, order.getStatus());
             stmt.executeUpdate();
-
-            // Lấy khóa chính được tạo tự động (nếu có)
             try ( ResultSet generatedKeys = stmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
                     int orderId = generatedKeys.getInt(1);
-                    newOrder = new OrderDTO(orderId, order.getQuantity(), order.getCreatedAt(), order.getTotalPrice(), order.getUserId());
+                    newOrder = new OrderDTO(orderId, order.getCreatedAt(), order.getAmount(), order.getAddress(), order.getNote(), order.getUserId(), order.getStatus());
                 }
             }
         }
-
         return newOrder;
+    }
+
+    public void updateOrderStatus(int orderId, String newStatus) throws SQLException, ClassNotFoundException {
+        try ( Connection conn = DBUtil.getConnection();  PreparedStatement stmt = conn.prepareStatement(UPDATE_ORDER_STATUS)) {
+            stmt.setString(1, newStatus);
+            stmt.setInt(2, orderId);
+            stmt.executeUpdate();
+        }
     }
 
     private OrderDTO mapResultSetToOrder(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
-        int quantity = rs.getInt("quantity");
         LocalDateTime createdAt = rs.getTimestamp("created_at").toLocalDateTime();
-        double totalPrice = rs.getDouble("total_price");
+        double amount = rs.getDouble("amount");
+        String address = rs.getString("address");
+        String note = rs.getString("note");
         int userId = rs.getInt("user_id");
-        return new OrderDTO(id, quantity, createdAt, totalPrice, userId);
-    }
-
-    public OrderDTO getLatestOrder() throws SQLException, ClassNotFoundException {
-        OrderDTO latestOrder = null;
-        String selectLatestOrderQuery = "SELECT TOP 1 * FROM [Order] ORDER BY created_at DESC";
-
-        try ( Connection conn = DBUtil.getConnection();  PreparedStatement stmt = conn.prepareStatement(selectLatestOrderQuery);  ResultSet rs = stmt.executeQuery()) {
-            if (rs.next()) {
-                latestOrder = mapResultSetToOrder(rs);
-            }
-        }
-
-        return latestOrder;
+        String status = rs.getString("status");
+        return new OrderDTO(id, createdAt, amount, address, note, userId, status);
     }
 
 }

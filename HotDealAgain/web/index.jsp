@@ -41,99 +41,6 @@
         </div>
         <!-- Spinner End -->
 
-        <!-- Login Modal -->
-        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body" id="loginForm">
-                        <!-- Login Form -->
-                        <form action="DispatchServlet" method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary" name="action" value="Login">Login</button>
-                            </div>
-                        </form>
-                        <!-- End Login Form -->
-                        <!-- Error Message -->
-                        <c:if test="${not empty requestScope.ERROR}">
-                            <div id="errorMessage" class="alert alert-danger text-center mt-3" role="alert">
-                                ${requestScope.ERROR}
-                            </div>
-                        </c:if>
-                    </div>
-                    <div class="modal-body" id="signupForm" style="display: none;"> <!-- Added an id to the sign-up form and set display: none -->
-                        <!-- Sign Up Form -->
-                        <form id="signupForm" action="SignupServlet"method="POST">
-                            <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="firstname" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstname" name="firstname" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="lastname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastname" name="lastname" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="telephone" class="form-label">Telephone</label>
-                                <input type="text" class="form-control" id="telephone" name="telephone" required>
-                            </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary"value="Signup">Sign Up</button>
-                            </div>
-                        </form>
-                        <!-- End Sign Up Form -->
-                    </div>
-                    <div class="modal-footer">
-                        <a href="#" class="me-auto" onclick="toggleForms()">Sign Up</a> <!-- Added onclick event to call JavaScript function -->
-                        <a href="#">Forgot Password</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            document.getElementById("username").addEventListener("focus", clearErrorMessage);
-            document.getElementById("password").addEventListener("focus", clearErrorMessage);
-
-
-            function clearErrorMessage() {
-                var errorMessage = document.getElementById("errorMessage");
-                errorMessage.textContent = "";
-                errorMessage.style.display = "none"; // Hide the error message
-            }
-            function toggleForms() {
-                var loginForm = document.getElementById('loginForm');
-                var signupForm = document.getElementById('signupForm');
-
-                if (loginForm.style.display === 'block') {
-                    loginForm.style.display = 'none';
-                    signupForm.style.display = 'block';
-                } else {
-                    loginForm.style.display = 'block';
-                    signupForm.style.display = 'none';
-                }
-            }
-        </script>
-
-
         <!-- Navbar start -->
         <div class="container-fluid fixed-top">
             <div class="container topbar bg-primary d-none d-lg-block">
@@ -158,12 +65,12 @@
                     <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
                         <div class="navbar-nav mx-auto">
                             <a href="${pageContext.request.contextPath}/index.jsp" class="nav-item nav-link active">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
+                            <a href="shop.jsp" class="nav-item nav-link">Shop</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0 bg-secondary rounded-0">
-                                    <a href="cart.html" class="dropdown-item">Cart</a>
-                                    <a href="chackout.html" class="dropdown-item">Chackout</a>
+                                    <a href="cart.jsp" class="dropdown-item">Cart</a>
+                                    <a href="checkout.jsp" class="dropdown-item">Chackout</a>
                                     <a href="testimonial.html" class="dropdown-item">Testimonial</a>
                                     <a href="404.html" class="dropdown-item">404 Page</a>
                                 </div>
@@ -176,8 +83,8 @@
                                 <i class="fa fa-shopping-bag fa-2x"></i>
                                 <span class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1" style="top: -5px; left: 15px; height: 20px; min-width: 20px;">3</span>
                             </a>
-                            <a href="#" class="my-auto" data-bs-toggle="modal" data-bs-target="#loginModal">
-                                <p>Login/Sign Up</p>
+                            <a href="login.jsp" class="my-auto">
+                                <p>Login</p>
                             </a>
 
                         </div>
@@ -188,25 +95,7 @@
         <!-- Navbar End -->
 
 
-        <!-- Modal Search Start -->
-        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-fullscreen">
-                <div class="modal-content rounded-0">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Search by keyword</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body d-flex align-items-center">
-                        <div class="input-group w-75 mx-auto d-flex">
-                            <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
-                            <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Modal Search End -->
-
+       
 
         <!-- Hero Start -->
         <div class="container-fluid py-5 mb-5 hero-header">
@@ -215,10 +104,7 @@
                     <div class="col-md-12 col-lg-7">
                         <h4 class="mb-3 text-secondary">100% Reasonable</h4>
                         <h1 class="mb-5 display-3 text-primary">New Hot Deals Everyday!!!</h1>
-                        <div class="position-relative mx-auto">
-                            <input class="form-control border-2 border-secondary w-75 py-3 px-4 rounded-pill" type="number" placeholder="Search">
-                            <button type="submit" class="btn btn-primary border-2 border-secondary py-3 px-4 position-absolute rounded-pill text-white h-100" style="top: 0; right: 25%;">Submit Now</button>
-                        </div>
+                        
                     </div>
                     <div class="col-md-12 col-lg-5">
                         <div id="carouselId" class="carousel slide position-relative" data-bs-ride="carousel">

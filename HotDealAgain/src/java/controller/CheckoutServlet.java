@@ -21,6 +21,7 @@ import order.OrderDAO;
 import order.OrderDTO;
 import orderdetail.OrderDetailDAO;
 import orderdetail.OrderDetailDTO;
+import user.UserDTO;
 
 /**
  *
@@ -84,14 +85,31 @@ public class CheckoutServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
         HttpSession session = request.getSession();
+        UserDTO user = (UserDTO) session.getAttribute("LOGIN_USER");
+
+        if (user == null) {
+            response.sendRedirect("index.jsp");
+            return; // Dừng xử lý nếu người dùng chưa đăng nhập
+        }
+
+        String address = request.getParameter("address");
+        String townCity = request.getParameter("town_city");
+        String country = request.getParameter("country");
+        String orderNotes = request.getParameter("order_notes") != null ? request.getParameter("order_notes") : "";
+        String fullAddress = address.concat(", ").concat(townCity).concat(", ").concat(country);
+        int amount = Math.round(Float.parseFloat(request.getParameter("totalPrice")) * 100);
+        Float totalPrice = Float.parseFloat(request.getParameter("totalPrice"));
         Cart cart = (Cart) session.getAttribute("cart");
         if (cart != null) {
             cart.setTotalPrice(totalPrice);
             OrderDTO orderDTO = createOrder(cart);
+            orderDTO.setAddress(fullAddress);
+            orderDTO.setUserId(user.getId());
+            orderDTO.setStatus("PENDING");
+            orderDTO.setNote(orderNotes);
             try {
-                OrderDTO order = addOrder(orderDTO);
+                OrderDTO order = addOrder(orderDTO); // Thêm đơn hàng vào cơ sở dữ liệu
                 List<CartItem> items = cart.getItems();
                 for (CartItem item : items) {
                     int productId = item.getProduct().getId();
@@ -102,13 +120,20 @@ public class CheckoutServlet extends HttpServlet {
                     orderDetailDTO.setProductId(productId);
                     orderDetailDTO.setQuantity(quantity);
                     orderDetailDTO.setPrice(price);
-                    addOrderDetail(orderDetailDTO);
+                    addOrderDetail(orderDetailDTO); // Thêm chi tiết đơn hàng vào cơ sở dữ liệu
                 }
+
+                session.setAttribute("order", order);
+                response.sendRedirect("PaymentServlet?grandTotal=" + amount);
             } catch (SQLException | ClassNotFoundException ex) {
                 ex.printStackTrace();
+                // Xử lý lỗi nếu có
+                response.sendRedirect("payment_failed.jsp");
             }
+        } else {
+            // Xử lý khi giỏ hàng không tồn tại trong session
+            response.sendRedirect("cart.jsp");
         }
-        response.sendRedirect("cart.jsp");
     }
 
     /**
@@ -125,20 +150,19 @@ public class CheckoutServlet extends HttpServlet {
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setCreatedAt(LocalDateTime.now());
         orderDTO.setUserId(2);
-        orderDTO.setTotalPrice(cart.getTotalPrice());
+        orderDTO.setAmount(cart.getTotalPrice());
         return orderDTO;
     }
-    
+
     private OrderDTO addOrder(OrderDTO orderDTO) throws SQLException, ClassNotFoundException {
         OrderDAO orderDAO = new OrderDAO();
         OrderDTO newOrderDTO = orderDAO.addOrder(orderDTO);
         return newOrderDTO;
     }
-    
+
     private void addOrderDetail(OrderDetailDTO orderDetailDTO) throws SQLException, ClassNotFoundException {
         OrderDetailDAO orderDetailDAO = new OrderDetailDAO();
         orderDetailDTO.setCreatedAt(LocalDateTime.now());
         orderDetailDAO.addOrderDetail(orderDetailDTO);
     }
-    
 }

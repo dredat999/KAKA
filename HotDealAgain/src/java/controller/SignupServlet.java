@@ -4,6 +4,7 @@
  */
 package controller;
 
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,6 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
+import user.UserCreateError;
 import user.UserDAO;
 import user.UserDTO;
 
@@ -21,6 +24,9 @@ import user.UserDTO;
  */
 @WebServlet(name = "SignupServlet", urlPatterns = {"/SignupServlet"})
 public class SignupServlet extends HttpServlet {
+
+    private final String ERROR_PAGE = "sign-up.jsp";
+    private final String LOGIN_PAGE = "LoginServlet";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,50 +40,59 @@ public class SignupServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
+
         // Retrieve form data
+        String url = ERROR_PAGE;
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String confirm = request.getParameter("confirmPassword");
         String firstName = request.getParameter("firstname");
         String lastName = request.getParameter("lastname");
         String telephone = request.getParameter("telephone");
-
-        // Validate form data
-        if (username == null || username.isEmpty() || password == null || password.isEmpty()
-                || firstName == null || firstName.isEmpty() || lastName == null || lastName.isEmpty()
-                || telephone == null || telephone.isEmpty()) {
-            // Handle validation errors, perhaps by showing an error message to the user
-            request.setAttribute("error", "Please fill in all fields");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
-            return;
-        }
-
-        // Perform additional validation (e.g., check username uniqueness, validate email format)
-        // Process the sign-up (e.g., save user to database)
-        try {
-            UserDTO user = new UserDTO();
-            user.setUsername(username);
-            user.setPassword(password);
-            user.setFirst_name(firstName);
-            user.setLast_name(lastName);
-            user.setTelephone(telephone);
-
-            UserDAO userDao = new UserDAO();
-            boolean success = userDao.addUser(user);
-            if (success) {
-                // Redirect to a success page
-                response.sendRedirect("customer.jsp");
-            } else {
-                // Handle database insertion failure
-                request.setAttribute("error", "Failed to sign up. Please try again later.");
-                request.getRequestDispatcher("index.jsp").forward(request, response);
+        String email = request.getParameter("email");
+        boolean foundErr = false;
+        UserCreateError errors = new UserCreateError();
+        try  {
+            //1.Check validation of all user's errors;
+            if(username.trim().length() < 3 || username.trim().length() > 20){
+                foundErr = true;
+                errors.setUsernameLengthErr("Username is required to type length from 3 to 20 characters");
             }
-        } catch (Exception e) {
-            // Handle exceptions (e.g., database connection error)
-            e.printStackTrace();
-            request.setAttribute("error", "An unexpected error occurred. Please try again later.");
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+            if(password.trim().length() < 8 || password.trim().length() > 30){
+                foundErr = true;
+                errors.setPasswordLengthErr("Password is required to type length from 8 to 30 characters");
+            } else if(!confirm.trim().equals(password.trim())){
+                foundErr = true;
+                errors.setConfirmNotMacthed("Confirm must match password");
+            }
+            if(firstName.trim().length() < 2 || username.trim().length() > 50){
+                foundErr = true;
+                errors.setFirstnameLengthErr("First name is required to type length from 2 to 20 characters");
+            }
+             if(lastName.trim().length() < 2 || username.trim().length() > 50){
+                foundErr = true;
+                errors.setLastnameLengthErr("First name is required to type length from 2 to 20 characters");
+            }
+            if(foundErr){
+                request.setAttribute("CREATE_ERROR", errors);
+            } else{
+            //2.Call DAO
+                UserDAO dao = new UserDAO();
+                UserDTO account = new UserDTO( username, password, firstName, lastName, telephone, email);
+                boolean result = dao.addUser(account);
+            //3.Process result
+            if(result){
+                url = LOGIN_PAGE;
+            }
+            } //no errors occur
+        } catch (ClassNotFoundException ex) {
+            log("CreateAccountServlet _SQL" + ex.getMessage());
+        } 
+         finally{
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

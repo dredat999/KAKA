@@ -104,7 +104,7 @@
         <!-- Navbar End -->
         <script>
             function logout() {
-                fetch('DispatchServlet?action=logout', {
+                fetch('DispatchServlet?action=Logout', {
                     method: 'POST' // Specify the method as POST
                 })
                         .then(response => {

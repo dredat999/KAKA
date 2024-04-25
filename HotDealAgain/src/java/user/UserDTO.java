@@ -24,6 +24,14 @@ public class UserDTO {
     public UserDTO() {
     }
 
+    public UserDTO( String username,String password, String first_name, String last_name, String telephone, String email){
+        this.username = username;
+        this.password = password;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.telephone = telephone;
+        this.email = email;
+    }
     public UserDTO(int id, String username, String password, String first_name, String last_name, String telephone,String email, LocalDateTime created_date, LocalDateTime last_loginDate, LocalDateTime last_modified, int role_id, boolean is_actived) {
         this.id = id;
         this.username = username;

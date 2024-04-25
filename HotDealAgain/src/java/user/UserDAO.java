@@ -20,10 +20,10 @@ import util.DBUtil;
  */
 public class UserDAO {
 
-    private static final String LOGIN = "SELECT * FROM [User] WHERE username = ? AND password = ?";
-    private static final String UPDATE_LAST_LOGIN = "UPDATE [User] SET last_loginDate = ? WHERE id = ?";
+    private static final String LOGIN = "SELECT * FROM Users WHERE username = ? AND password = ?";
+    private static final String UPDATE_LAST_LOGIN = "UPDATE Users SET last_loginDate = ? WHERE id = ?";
 
-    public static UserDTO loginUser(String username, String password) throws ClassNotFoundException, SQLException {
+    public  UserDTO loginUser(String username, String password) throws ClassNotFoundException, SQLException {
         // Initialize variables
         Connection conn = null;
         PreparedStatement ps = null;
@@ -82,9 +82,9 @@ public class UserDAO {
         return user;
     }
 
-    private static final String GET_ALL = "SELECT * FROM [User]";
+    private static final String GET_ALL = "SELECT * FROM Users WHERE is_actived = ?";
 
-    public List<UserDTO> getListUser() throws ClassNotFoundException, SQLException {
+    public List<UserDTO> getListUser(boolean is_actived) throws ClassNotFoundException, SQLException {
         Connection conn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -94,6 +94,8 @@ public class UserDAO {
             conn = DBUtil.getConnection();
             if (conn != null) {
                 ps = conn.prepareStatement(GET_ALL);
+                ps.setBoolean(1, is_actived);
+
                 rs = ps.executeQuery();
 
                 while (rs.next()) {
@@ -129,34 +131,61 @@ public class UserDAO {
         return userList;
     }
 
+    private static final String REMOVE_USER_QUERY = "UPDATE Users SET is_actived = ? WHERE id = ?";
 
-    public boolean addUser(UserDTO user) throws ClassNotFoundException {
-        String sql = "INSERT INTO User(username, password, first_name, last_name, telephone, created_date, last_loginDate, last_modified, role_id, is_actived) "
-                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void removeBook(int userId) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement ps = null;
 
         try {
-            Connection conn = DBUtil.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql);
+            conn = DBUtil.getConnection();
+            if (conn != null) {
+                ps = conn.prepareStatement(REMOVE_USER_QUERY);
+                ps.setBoolean(1, false); // Set status to false
+                ps.setInt(2, userId);
+
+                // Execute the update query
+                ps.executeUpdate();
+            }
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+    }
+
+    public boolean addUser(UserDTO user) throws ClassNotFoundException {
+        String sql = "INSERT INTO Users(username, password, first_name, last_name, telephone, email, created_at, last_loginDate, modified_at, role_id, is_actived) "
+                + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        boolean result = false;
+
+        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, user.getUsername());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getFirst_name());
             ps.setString(4, user.getLast_name());
             ps.setString(5, user.getTelephone());
-            ps.setTimestamp(6, Timestamp.valueOf(LocalDateTime.now())); // Set created_date to current time
-            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now())); // Set last_loginDate to current time
-            ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now())); // Set last_modified to current time
-            ps.setInt(9, 2);
-            ps.setBoolean(10, true);
+            ps.setString(6, user.getEmail());
+            ps.setTimestamp(7, Timestamp.valueOf(LocalDateTime.now())); // Set created_date to current time
+            ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now())); // Set last_loginDate to current time
+            ps.setTimestamp(9, Timestamp.valueOf(LocalDateTime.now())); // Set last_modified to current time
+            ps.setInt(10, 2);
+            ps.setBoolean(11, true);
 
-            int rowCount = ps.executeUpdate();
-            if (rowCount > 0) {
-                return true;
+            int effectRows = ps.executeUpdate();
+            //5. Process result
+            if (effectRows > 0) {
+                result = true;
             }
+
         } catch (SQLException ex) {
-            System.out.println("Insert user error!" + ex.getMessage());
+            System.out.println("Insert user error: " + ex.getMessage());
         }
-        return false;
+        return result;
     }
 
 //    public static void main(String[] args) {

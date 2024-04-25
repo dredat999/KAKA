@@ -13,7 +13,7 @@ import java.util.List;
 import util.DBUtil;
 
 public class OrderDetailDAO {
-
+    
     private static final String INSERT_ORDER_DETAIL = "INSERT INTO OrderDetail (quantity, price, product_id, order_id, created_at) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_ORDER_DETAILS_BY_ORDER_ID = "SELECT * FROM OrderDetail WHERE order_id = ?";
 
